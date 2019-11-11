@@ -9,6 +9,9 @@ using Microsoft.Extensions.DependencyInjection;
 using Orders.Schema;
 using Orders.Services;
 using GraphQL;
+using GraphQL.Server.Transports.AspNetCore;
+using GraphQL.Server.Transports.WebSockets;
+
 namespace Server
 {
     public class Startup
@@ -25,7 +28,8 @@ namespace Server
             services.AddSingleton<IDependencyResolver>(
                 c=>new FuncDependencyResolver(type=> c.GetRequiredService(type))
                 );
-
+            services.AddGraphQLHttp();
+            services.AddGraphQLWebSocket<OrdersSchema>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -37,6 +41,10 @@ namespace Server
             }
             app.UseDefaultFiles();
             app.UseStaticFiles();
+            app.UseWebSockets();
+
+            app.UseGraphQLHttp<OrdersSchema>(new GraphQLHttpOptions());
+            app.UseGraphQLWebSocket<OrdersSchema>(new GraphQLWebSocketsOptions());
         }
     }
 }

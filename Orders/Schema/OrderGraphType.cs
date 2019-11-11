@@ -15,6 +15,7 @@ namespace Orders.Schema
             Field(x => x.Id);
             Field(x => x.Name);
             Field(x => x.DateTime);
+            Field(x => x.Amount);
         }
     }
 
