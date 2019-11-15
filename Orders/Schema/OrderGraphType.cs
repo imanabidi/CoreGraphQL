@@ -2,43 +2,29 @@
 using System;
 using System.Collections.Generic;
 using System.Text;
-using GraphQL;
 using GraphQL.Types;
 using Orders.Services;
 
 namespace Orders.Schema
 {
-    public class OrderGraphType : GraphQL.Types.ObjectGraphType<Order>
+    public class OrderGraphType : ObjectGraphType<Order>
     {
-        public OrderGraphType()
+        public OrderGraphType(ICustomerServices customerServices)
         {
             Field(x => x.Id);
             Field(x => x.Name);
+            Field<CustomerType>("Customer" ,resolve: context=> customerServices.GetCustomerById( context.Source.CustomerId));
             Field(x => x.DateTime);
             Field(x => x.Amount);
         }
     }
 
-
-    public class OrdersQuery : ObjectGraphType<object>
+    public class CustomerType : ObjectGraphType<Customer>
     {
-        public OrdersQuery(IOrderServices orderServices)
+        public CustomerType()
         {
-            Name = "Query";
-            Field<ListGraphType<OrderGraphType>>("Orders",
-                                        resolve: x => orderServices.GetOrders());
-
+            Field(x=>x.Id);
+            Field(x=>x.Name);
         }
     }
-
-
-    public class OrdersSchema : GraphQL.Types.Schema
-    {
-        public OrdersSchema(OrdersQuery query, IDependencyResolver dependencyResolver)
-        {
-            this.Query = query;
-            this.DependencyResolver = dependencyResolver;
-        }
-    }
-
 }

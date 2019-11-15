@@ -6,17 +6,31 @@ namespace Orders.Models
 {
     public class Order
     {
-        public Order(int amount, string name, DateTime dateTime, string id)
+        public Order(int amount, string name, DateTime dateTime, string id,int customerId)
         {
             Id = id;
             Name = name;
             DateTime = dateTime;
             Amount = amount;
+            Status = OrderStatuses.CREATED;
+            CustomerId = customerId;
         }
 
-        public string Id { get; set; }
+        public Customer Customer { get; set; }
+        public string Id { get;private set; }
         public int Amount { get; set; }
         public string Name { get; set; }
         public DateTime DateTime { get; set; }
+        public OrderStatuses Status { get; set; }
+        public int CustomerId { get; private set; }
+    }
+
+    public enum OrderStatuses
+    {
+        CREATED = 2,
+        PROSSESING = 4,
+        COMPLETED = 8 , 
+        CANCELLED = 16,
+        CLOSED = 32
     }
 }
