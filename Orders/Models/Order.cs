@@ -21,8 +21,13 @@ namespace Orders.Models
         public int Amount { get; set; }
         public string Name { get; set; }
         public DateTime DateTime { get; set; }
-        public OrderStatuses Status { get; set; }
+        public OrderStatuses Status { get; private set; }
         public int CustomerId { get; private set; }
+
+        internal void Start()
+        {
+            this.Status = OrderStatuses.PROSSESING;
+        }
     }
 
     public enum OrderStatuses

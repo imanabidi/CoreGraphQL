@@ -13,18 +13,9 @@ namespace Orders.Schema
         {
             Field(x => x.Id);
             Field(x => x.Name);
-            Field<CustomerType>("Customer" ,resolve: context=> customerServices.GetCustomerById( context.Source.CustomerId));
+            Field<CustomerType>("Customer" ,resolve: context=> customerServices.GetCustomerByIdAsync( context.Source.CustomerId));
             Field(x => x.DateTime);
             Field(x => x.Amount);
-        }
-    }
-
-    public class CustomerType : ObjectGraphType<Customer>
-    {
-        public CustomerType()
-        {
-            Field(x=>x.Id);
-            Field(x=>x.Name);
         }
     }
 }

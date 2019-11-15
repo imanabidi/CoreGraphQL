@@ -3,6 +3,7 @@ using System;
 using System.Collections.Generic;
 using System.Text;
 using System.Linq;
+using System.Threading.Tasks;
 using Orders.Models;
 
 namespace Orders.Services
@@ -20,21 +21,46 @@ namespace Orders.Services
             _orders.Add(new Order(4000, "10 Posters", DateTime.Now.AddHours(5), "2D542572-EF99-4786-AEB5-C997D82E57C7",4));
         }
 
-        public IEnumerable<Order> GetOrders()
+        public Task<IEnumerable<Order>> GetOrders()
         {
-            return _orders.AsEnumerable();
+            return Task.FromResult(_orders.AsEnumerable());
         }
 
-        public Order GetOrderById(string id)
+        public Task<Order> GetOrderByIdAsync(string id)
         {
-            return _orders.SingleOrDefault(x => x.Id == id);
+            return Task.FromResult(_orders.SingleOrDefault(x => x.Id == id));
+        }
+
+        public Task<Order> StartAsync(string id)
+        {
+            var order = GetOrderById(id);
+            order.Start();
+            return Task.FromResult(order);
+        }
+
+        private Order GetOrderById(string id)
+        {
+            var order = _orders.SingleOrDefault(x=>x.Id == id);
+
+            if(order==null)
+                throw new ArgumentException($"{id} does not exists in orders collection");
+
+            return order;
+        }
+
+        public Task<Order> CreateAsync(Order order)
+        {
+            _orders.Add(order);
+            return Task.FromResult(order);
         }
     }
 
     public interface IOrderServices
     {
-        IEnumerable<Order> GetOrders();
-        Order GetOrderById(string id);
+        Task<IEnumerable<Order>> GetOrders();
+        Task<Order> GetOrderByIdAsync(string id);
+        Task<Order> StartAsync(string id);
+        Task<Order> CreateAsync(OrderGraphType order);
     }
   
 }

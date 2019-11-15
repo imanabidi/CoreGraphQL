@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Threading.Tasks;
 using Orders.Models;
 
 namespace Orders.Services
@@ -18,14 +19,14 @@ namespace Orders.Services
             _customers.Add(new Customer(4, "Leaf & Mortar"));
         }
 
-        public IEnumerable<Customer> GetCustomers()
+        public Task<IEnumerable<Customer>> GetCustomers()
         {
-            return _customers.AsEnumerable();
+            return Task.FromResult(_customers.AsEnumerable());
         }
 
-        public Customer GetCustomerById(int id)
+        public Task<Customer> GetCustomerByIdAsync(int id)
         {
-            return _customers.SingleOrDefault(x=>x.Id==id);
+            return Task.FromResult(_customers.SingleOrDefault(x=>x.Id==id));
         }
         
 
@@ -33,7 +34,7 @@ namespace Orders.Services
 
       public interface ICustomerServices
     {
-        IEnumerable<Customer> GetCustomers();
-        Customer GetCustomerById(int id);
+        Task<IEnumerable<Customer>> GetCustomers();
+        Task<Customer> GetCustomerByIdAsync(int id);
     }
 }
