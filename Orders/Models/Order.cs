@@ -41,7 +41,7 @@ namespace Orders.Models
 
         internal void Start()
         {
-            this.Status = OrderStatuses.PROSSESING;
+            this.Status = OrderStatuses.PROCESSING;
         }
     }
 }
