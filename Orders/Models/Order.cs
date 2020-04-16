@@ -6,19 +6,34 @@ namespace Orders.Models
 {
     public class Order
     {
-        public Order(int amount, string name, DateTime dateTime, string id,int customerId)
+        // it is written for the amount which is not used in main model
+        //public Order(int amount, string name, DateTime dateTime, string id, int customerId)
+        //{
+        //    Id = id;
+        //    Name = name;
+        //    DateTime = dateTime;
+        //    Amount = amount;
+        //    Status = OrderStatuses.CREATED;
+        //    CustomerId = customerId;
+        //}
+        // main from tutorial
+        public Order(string name, string description, DateTime created, int customerId, string Id)
         {
-            Id = id;
             Name = name;
-            DateTime = dateTime;
-            Amount = amount;
-            Status = OrderStatuses.CREATED;
+            Description = description;
+            Created = created;
             CustomerId = customerId;
+            this.Id = Id;
+            Status = OrderStatuses.CREATED;
         }
 
+        public DateTime Created { get; set; }
+
+        public string Description { get; set; }
+
         public Customer Customer { get; set; }
-        public string Id { get;private set; }
-        public int Amount { get; set; }
+        public string Id { get; private set; }
+        //public int Amount { get; set; }
         public string Name { get; set; }
         public DateTime DateTime { get; set; }
         public OrderStatuses Status { get; private set; }
@@ -28,14 +43,5 @@ namespace Orders.Models
         {
             this.Status = OrderStatuses.PROSSESING;
         }
-    }
-
-    public enum OrderStatuses
-    {
-        CREATED = 2,
-        PROSSESING = 4,
-        COMPLETED = 8 , 
-        CANCELLED = 16,
-        CLOSED = 32
     }
 }

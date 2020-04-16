@@ -10,6 +10,7 @@ EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{35A9A1DB-39B3-408A-9E09-C10926C46049}"
 	ProjectSection(SolutionItems) = preProject
 		nuget.config = nuget.config
+		readme.txt = readme.txt
 	EndProjectSection
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "GraphQlHelloWorld", "GraphQlHelloWorld\GraphQlHelloWorld\GraphQlHelloWorld.csproj", "{C5550BA3-B9AD-4378-8B65-5D5E28B1AD7A}"

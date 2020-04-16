@@ -8,6 +8,8 @@ namespace GraphQlHelloWorld
     {
         static void Main(string[] args)
         {
+            //https://graphql-dotnet.github.io/docs/getting-started/introduction
+
             var schema=Schema.For(@"
                               type Query { 
                                   hello: String  

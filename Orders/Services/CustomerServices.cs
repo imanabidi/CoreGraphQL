@@ -6,7 +6,7 @@ using Orders.Models;
 
 namespace Orders.Services
 {
-    public class  CustomerServices :ICustomerServices 
+    public class CustomerServices : ICustomerServices
     {
         private IList<Customer> _customers;
 
@@ -26,15 +26,9 @@ namespace Orders.Services
 
         public Task<Customer> GetCustomerByIdAsync(int id)
         {
-            return Task.FromResult(_customers.SingleOrDefault(x=>x.Id==id));
+            return Task.FromResult(_customers.SingleOrDefault(x => x.Id == id));
         }
-        
 
-    }
 
-      public interface ICustomerServices
-    {
-        Task<IEnumerable<Customer>> GetCustomers();
-        Task<Customer> GetCustomerByIdAsync(int id);
     }
 }

@@ -3,9 +3,9 @@ using GraphQL.Types;
 
 namespace Orders.Schema
 {
-    public class CustomerType : ObjectGraphType<Customer>
+    public class CustomerGraphType : ObjectGraphType<Customer>
     {
-        public CustomerType()
+        public CustomerGraphType()
         {
             Field(x=>x.Id);
             Field(x=>x.Name);

@@ -13,9 +13,14 @@ namespace Orders.Schema
         {
             Field(x => x.Id);
             Field(x => x.Name);
-            Field<CustomerType>("Customer" ,resolve: context=> customerServices.GetCustomerByIdAsync( context.Source.CustomerId));
+            Field<CustomerGraphType>("Customer",
+                resolve: context =>
+                            customerServices.GetCustomerByIdAsync(context.Source.CustomerId));
             Field(x => x.DateTime);
-            Field(x => x.Amount);
+            //Field(x => x.Amount);
+            Field(x => x.Description);
+            Field<OrderStatusesEnum>("status",
+                resolve: context => context.Source.Status);
         }
     }
 }
